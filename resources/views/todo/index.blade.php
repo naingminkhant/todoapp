@@ -20,7 +20,7 @@
     <div class="col-sm-6">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>ADD TODO</h4>
+                <h4>ADD Events</h4>
             </div>
             <div class="panel-body">
                 <div class="form-group">
