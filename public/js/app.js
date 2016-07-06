@@ -12,6 +12,7 @@ new Vue({
         events:[],
     },
     ready:function(){
+        $('#name').focus();
         this.fetchEvents();
     },
     methods:{
@@ -43,6 +44,7 @@ new Vue({
                 this.events.push(this.event);
                 this.event={name:'',description:'',date:''};
             }
+            $('#name').focus();
         },
         removeEvent:function($index){
             if(confirm('Are you sure?'+$index))
