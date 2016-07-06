@@ -44,5 +44,11 @@ new Vue({
                 this.event={name:'',description:'',date:''};
             }
         },
+        removeEvent:function($index){
+            if(confirm('Are you sure?'+$index))
+            {
+                this.events.splice($index,1);
+            }
+        },
     }
 });

@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>TO DO</title>
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('plugins/datepicker3.css') }}">
+    @include('layouts.head')
 </head>
 <body>
 <!-- Navigation Bar -->
 <div class="navbar navbar-default">
     <div class="container-fluid">
-        <a class="navbar-brand"><i class="glyphicon glyphicon-bullhorn"></i>&nbsp To Do App</a>
+        <a class="navbar-brand"><i class="fa fa-book"></i>&nbsp To Do App</a>
     </div>
 </div>
 
@@ -23,15 +22,29 @@
                 <h4>ADD Events</h4>
             </div>
             <div class="panel-body">
+                <!-- name entry -->
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name" v-model="event.name" autofocus>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-bell"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Name" v-model="event.name" autofocus>
+                    </div>
                 </div>
+                <!-- description entry -->
                 <div class="form-group">
                     <textarea class="form-control" placeholder="Description" v-model="event.description"></textarea>
                 </div>
-                <div class="form-group date">
-                    <input type="datetime" id='date-popup' class="form-control" placeholder="Date" v-model="event.date">
+                <!-- date picker -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" id='datepicker' data-date-format="dd-mm-yyyy" class="input-append form-control datepicker" placeholder="dd-mm-yyyy" v-model="event.date">
+                    </div>
                 </div>
+                <!-- submit button -->
                 <div class="form-group">
                     <button class="btn btn-primary" v-on:click="addEvent">Submit</button>
                 </div>
@@ -44,21 +57,19 @@
         <div class="list-group">
             <a href="#" class="list-group-item" v-for="event in events">
                 <h4 class="list-group-item-heading">
-                    <i class="glyphicon glyphicon-bullhorn"></i>
+                    <i class="fa fa-bell"></i>
                     @{{ event.name }}
                 </h4>
                 <h5>
-                    <i class="glyphicon glyphicon-calendar" v-if="event.date">@{{ event.date }}</i>
+                    <i class="fa fa-calendar" v-if="event.date">&nbsp;@{{ event.date }}</i>
                 </h5>
                 <p class="list-group-item-text" v-if="event.description">@{{ event.description }}</p>
+
+                <button class="btn btn-danger" v-on:click="removeEvent($index)">Delete</button>
             </a>
         </div>
     </div>
 </div>
-<script src="../node_modules/vue/dist/vue.js"></script>
-<script src="../node_modules/vue-resource/dist/vue-resource.js"></script>
-<script src="{{ asset('plugins/bootstrap-datepicker.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-
 </body>
+@include('layouts.script')
 </html>
