@@ -4,7 +4,10 @@
 new Vue({
     el:"#events",
     data:{
+        edit: false,
         event:{
+            id:'',
+            index:       '',
             name:        '',
             description: '',
             date:        '',
@@ -12,10 +15,11 @@ new Vue({
         events:[],
     },
     ready:function(){
-        $('#name').focus();
         this.fetchEvents();
+        $('#name').focus();
     },
     methods:{
+        // add example data ....
         fetchEvents:function(){
             var events=[
                 {
@@ -25,13 +29,13 @@ new Vue({
                     date:        '2015-09-20'
                 },
                 {
-                    id: 1,
+                    id: 2,
                     name:        'Sleep',
                     description: 'for healthy and brain',
                     date:        '2015-09-20'
                 },
                 {
-                    id: 1,
+                    id: 3,
                     name:        'Relax',
                     description: 'Massage and KTV',
                     date:        '2015-09-20'
@@ -39,13 +43,31 @@ new Vue({
             ];
             this.$set('events',events);
         },
+        // create Add Event Function
         addEvent: function () {
-            if(this.event.name){
+            if(this.event.name && this.edit==false){
                 this.events.push(this.event);
-                this.event={name:'',description:'',date:''};
+                console.log("event added");
             }
+            else
+            {
+                this.events.set(this.event);
+                this.edit=false;
+            }
+            this.event={name:'',description:'',date:''};
             $('#name').focus();
         },
+        //create Edit Event Function
+        editEvent:function(event,index){
+            this.edit=true;
+            if(event.name)
+            {
+                this.event.name         = event.name;
+                this.event.description  = event.description;
+                this.event.date         = event.date;
+            }
+        },
+        //create Remove Event Function
         removeEvent:function($index){
             if(confirm('Are you sure?'+$index))
             {
