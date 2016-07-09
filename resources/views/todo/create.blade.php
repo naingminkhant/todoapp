@@ -34,8 +34,9 @@
             <!-- submit button -->
             <div class="form-group">
                 <button class="btn btn-primary" v-model="edit"
-                        v-on:click="addEvent">@{{ edit?'Update':'Submit' }}</button>
+                        v-on:click="addEvent">@{{ inEdit?'Update':'Submit' }}</button>
             </div>
         </div>
     </div>
 </div>
+

@@ -16,9 +16,49 @@
 <!-- main body of our app -->
 <div class="container" id="events">
     <!-- add an events -->
-    @include('todo.create')
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <!-- Add event heading -->
+            <div class="panel-heading">
+                <h4><i class="glyphicon glyphicon-plus-sign">
+                    </i> Events</h4>
+            </div>
+            <!-- Add event body -->
+            <div class="panel-body">
+                <!-- name entry -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-bell"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Name" id="name" v-model="event.name">
+                    </div>
+                </div>
+                <!-- description entry -->
+                <div class="form-group">
+                    <textarea class="form-control" placeholder="Description" v-model="event.description"></textarea>
+                </div>
+                <!-- date picker -->
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" id='datepicker' data-date-format="dd-mm-yyyy"
+                               class="input-append form-control datepicker" placeholder="dd-mm-yyyy"
+                               v-model="event.date">
+                    </div>
+                </div>
+                <!-- submit button -->
+                <div class="form-group">
+                    <button class="btn btn-primary" v-model="edit"
+                            v-on:click="addEvent">@{{ edit?'Update':'Submit' }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <!-- lists all events Todo Lists -->
+    <!-- lists all events Todo Lists -->
     <div class="col-sm-6">
         <div class="panel-default">
             <!-- Todo Lists heading -->
@@ -28,7 +68,7 @@
             <!-- Todo List body -->
             <div class="panel-body">
                 <div class="form-group">
-                    <div class="list-group-item" v-for="event in events">
+                    <div class="list-group-item" v-for="event in events | orderBy 'id'">
                         <a href="#" style="float: right; text-decoration: none; color: gray;"
                            class="glyphicon glyphicon-remove" v-on:click="removeEvent($index)"></a>
                         <h4 class="list-group-item-heading">
@@ -44,7 +84,7 @@
                             <button class="btn btn-sm btn-success" v-on:click="editEvent($index)">
                                 <i class="glyphicon glyphicon-thumbs-up"></i>
                             </button>
-                            <button class="btn btn-sm btn-default" v-on:click="editEvent(event,$index)">
+                            <button class="btn btn-sm btn-default" v-on:click="editEvent(event);">
                                 <i class="glyphicon glyphicon-edit"></i>
                             </button>
                         </div>
@@ -53,8 +93,8 @@
             </div>
         </div>
     </div>
-
 </div>
 </body>
 @include('layouts.script')
+<script src="{{ asset('js/app.js') }}"></script>
 </html>

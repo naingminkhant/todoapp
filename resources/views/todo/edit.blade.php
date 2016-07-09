@@ -1,7 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: naingminkhant
- * Date: 7/8/16
- * Time: 12:43 AM
- */
+<div id="events" v-if="edit">
+
+</div>

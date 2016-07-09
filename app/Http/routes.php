@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('todo','TodoController');
+
+Route::get('/sample',function(){
+    return view('sample');
+});
