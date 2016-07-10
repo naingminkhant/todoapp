@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>TO DO</title>
     @include('layouts.head')
+    <style>
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -51,7 +56,7 @@
                 </div>
                 <!-- submit button -->
                 <div class="form-group">
-                    <button class="btn btn-primary" v-model="edit"
+                    <button class="btn btn-primary" v-bind:style="buttonColor"
                             v-on:click="addEvent">@{{ edit?'Update':'Submit' }}</button>
                 </div>
             </div>
@@ -68,20 +73,21 @@
             <!-- Todo List body -->
             <div class="panel-body">
                 <div class="form-group">
+                    {{--list-group-item--}}
+                    {{--<div :class="{'completed':event.completed}" v-for="event in events | orderBy 'id'">--}}
                     <div class="list-group-item" v-for="event in events | orderBy 'id'">
                         <a href="#" style="float: right; text-decoration: none; color: gray;"
                            class="glyphicon glyphicon-remove" v-on:click="removeEvent($index)"></a>
                         <h4 class="list-group-item-heading">
                             <i class="fa fa-bell"></i>
-                            @{{ event.name }}
+                            @{{ event.name }}@{{ event.completed }}
                         </h4>
                         <h5>
                             <i class="fa fa-calendar" v-if="event.date">&nbsp;@{{ event.date }}</i>
                         </h5>
                         <p class="list-group-item-text" v-if="event.description">- @{{ event.description }}</p>
-
                         <div align="right">
-                            <button class="btn btn-sm btn-success" v-on:click="editEvent($index)">
+                            <button class="btn btn-sm btn-success" v-on:click="finishEvent(event)">
                                 <i class="glyphicon glyphicon-thumbs-up"></i>
                             </button>
                             <button class="btn btn-sm btn-default" v-on:click="editEvent(event);">
