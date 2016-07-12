@@ -6,31 +6,33 @@ new Vue({
     data: {
         edit: false,
         count: 0,
-        event: {
-            //    id: 0,
-            //    name: '',
-            //    description: '',
-            //    date: '',
+        event:{
+            id:'',
+            name:'',
+            description:'',
+            date:'',
+            completed:'',
         },
         events: [
             {
                 id: 0,
-                name: 'A',
-                description: '',
-                date: '',
+                name: 'Relax',
+                description: 'kaung khant lynn and kaung myat aung, beer bar, massage and ktv',
+                date: '25-10-2016',
                 completed: false,
             },
             {
                 id: 1,
-                name: 'B',
-                description: '',
-                date: '',
+                name: 'Meeting',
+                description: 'Yoon Wadi..... hee hee ...',
+                date: 'Everyday',
                 completed: false,
             },
         ]
     },
     ready: function () {
         $('#name').focus();
+        this.event={name:'',description:'',date:''};
     },
     computed: {
         buttonColor: function () {
@@ -46,35 +48,47 @@ new Vue({
                 if (this.edit == false) {
                     this.count += 1;
                     this.event.id = this.count;
+                    this.event.completed=false;
                 }
                 else {
                     this.edit = false;
                 }
-                var that = this;
-                //event.completed=false;
-                that.event.completed=true;
-                this.events.push(this.event);
+                this.events.push({
+                    id          :this.event.id,
+                    name        :this.event.name,
+                    description :this.event.description,
+                    date        :this.event.date,
+                    completed   :this.event.completed,
+                });
             }
             this.event = {name: '', description: '', date: ''};
             $('#name').focus();
         },
         //create Edit Event Function
         editEvent: function (event) {
-            this.edit = true; //edit is true
-            this.event.id = event.id;
-            this.event.name = event.name;
-            this.event.description = event.description;
-            this.event.date = event.date;
-            this.events.$remove(event);
-        },
-        isCompleted: function(event) {
-            return this.event.completed;
+            if(!this.edit)
+            {
+                this.edit = true;
+
+                this.event.id = event.id;
+                this.event.name = event.name;
+                this.event.description = event.description;
+                this.event.date = event.date;
+                this.event.completed=event.completed;
+                this.events.$remove(event);
+            }
         },
         //
         finishEvent: function (event) {
-
-            //event.completed=false;
-            return event.completed=!event.completed;
+            if(event.completed)
+            {
+                if(confirm('Are you sure return?')){
+                    return event.completed=!event.completed;
+                }
+            }
+            else {
+                return event.completed=!event.completed;
+            }
         },
         //create Remove Event Function
         removeEvent: function ($index) {
