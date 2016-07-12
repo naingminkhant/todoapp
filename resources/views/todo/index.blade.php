@@ -6,7 +6,7 @@
     @include('layouts.head')
     <style>
         .completed {
-            text-decoration: line-through;
+            background-color: black;
         }
     </style>
 </head>
@@ -75,20 +75,23 @@
                 <div class="form-group">
                     {{--list-group-item--}}
                     {{--<div :class="{'completed':event.completed}" v-for="event in events | orderBy 'id'">--}}
-                    <div class="list-group-item" v-for="event in events | orderBy 'id'">
+                    <div class="list-group-item" :class="{'completed':event.completed}" v-for="event in events | orderBy 'id'">
                         <a href="#" style="float: right; text-decoration: none; color: gray;"
                            class="glyphicon glyphicon-remove" v-on:click="removeEvent($index)"></a>
                         <h4 class="list-group-item-heading">
                             <i class="fa fa-bell"></i>
-                            @{{ event.name }}@{{ event.completed }}
+                            @{{ event.name }}
                         </h4>
                         <h5>
                             <i class="fa fa-calendar" v-if="event.date">&nbsp;@{{ event.date }}</i>
                         </h5>
                         <p class="list-group-item-text" v-if="event.description">- @{{ event.description }}</p>
                         <div align="right">
-                            <button class="btn btn-sm btn-success" v-on:click="finishEvent(event)">
+                            <button class="btn btn-sm btn-success" v-if="!event.completed" v-on:click="finishEvent(event)">
                                 <i class="glyphicon glyphicon-thumbs-up"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger" v-if="event.completed" v-on:click="finishEvent(event)">
+                                <i class="glyphicon glyphicon-thumbs-down"></i>
                             </button>
                             <button class="btn btn-sm btn-default" v-on:click="editEvent(event);">
                                 <i class="glyphicon glyphicon-edit"></i>
