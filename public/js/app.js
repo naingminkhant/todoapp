@@ -5,7 +5,7 @@ new Vue({
     el: "#events",
     data: {
         edit: false,
-        count: 0,
+        count: 1,
         event:{
             id:'',
             name:'',
